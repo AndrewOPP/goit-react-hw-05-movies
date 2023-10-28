@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 
 export const MYAPI = '48d7bf93e386bf362111f4874b62be4e';
 
-export function Home() {
+export default function Home() {
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {

@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { MYAPI } from 'pages/Home';
+import { MYAPI } from 'Home';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export function Reviews() {
+export default function Reviews() {
   const { id } = useParams();
   const [reviews, setReviews] = useState('');
   useEffect(() => {

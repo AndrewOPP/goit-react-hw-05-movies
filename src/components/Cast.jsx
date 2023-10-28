@@ -1,9 +1,9 @@
 import axios from 'axios';
-import { MYAPI } from 'pages/Home';
+import { MYAPI } from 'Home';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-export function Cast() {
+export default function Cast() {
   const { id } = useParams();
   const [authors, setAuthors] = useState('');
   useEffect(() => {

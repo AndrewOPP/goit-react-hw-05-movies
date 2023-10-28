@@ -1,11 +1,13 @@
-import { MovieDetails } from '../pages/MovieDetails';
-import { MoviesSearch } from '../pages/MoviesSearch';
-import { Home } from '../pages/Home';
 import { NavLink, Route, Routes } from 'react-router-dom';
 import styled from 'styled-components';
-import { NotFoundPage } from 'pages/NotFoundPage';
-import { Reviews } from './Reviews';
-import { Cast } from './Cast';
+import { Suspense, lazy } from 'react';
+
+const Home = lazy(() => import('../Home'));
+const MoviesSearch = lazy(() => import('../pages/MoviesSearch'));
+const MovieDetails = lazy(() => import('../pages/MovieDetails'));
+const NotFoundPage = lazy(() => import('../pages/NotFoundPage'));
+const Reviews = lazy(() => import('./Reviews'));
+const Cast = lazy(() => import('./Cast'));
 
 export const App = () => {
   const StyledLink = styled(NavLink)`
@@ -22,16 +24,17 @@ export const App = () => {
         <StyledLink to="/movies">Home</StyledLink>
         <StyledLink to="/moviesSearch">Search</StyledLink>
       </nav>
-
-      <Routes>
-        <Route path="/movies" element={<Home />} />
-        <Route path="/moviesSearch" element={<MoviesSearch />} />
-        <Route path="/movies/:id" element={<MovieDetails />}>
-          <Route path="cast" element={<Cast />} />
-          <Route path="reviews" element={<Reviews />} />
-        </Route>
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
+      <Suspense fallback={'Loading'}>
+        <Routes>
+          <Route path="/movies" element={<Home />} />
+          <Route path="/moviesSearch" element={<MoviesSearch />} />
+          <Route path="/movies/:id" element={<MovieDetails />}>
+            <Route path="cast" element={<Cast />} />
+            <Route path="reviews" element={<Reviews />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </Suspense>
     </div>
   );
 };

@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
-import { MYAPI } from './Home';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
+import { MYAPI } from '../Home';
 import toast, { Toaster } from 'react-hot-toast';
 
-export function MovieDetails() {
+export default function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState('');
-
+  const location = useLocation();
   useEffect(() => {
     const getData = async () => {
       try {
@@ -25,6 +25,7 @@ export function MovieDetails() {
 
   return (
     <div>
+      <Link to={location.state?.from ?? '/movies'}>Back to movies</Link>
       {movie.title && (
         <div>
           <h1>Title: {movie.title}</h1>

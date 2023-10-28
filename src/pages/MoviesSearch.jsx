@@ -1,12 +1,15 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { MYAPI } from './Home';
-import { Link, useSearchParams } from 'react-router-dom';
+import { MYAPI } from '../Home';
+import { Link, useLocation, useSearchParams } from 'react-router-dom';
 
-export function MoviesSearch() {
+export default function MoviesSearch() {
   const [query, setQuery] = useState('');
   const [movies, setMovies] = useState(null);
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const location = useLocation();
+
   useEffect(() => {
     const fetchData = async () => {
       const addrQuery = searchParams.get('query');
@@ -44,7 +47,9 @@ export function MoviesSearch() {
             {movies.results.map(movie => {
               return (
                 <li key={movie.id}>
-                  <Link to={`/movies/${movie.id}`}>{movie.title}</Link>
+                  <Link to={`/movies/${movie.id}`} state={{ from: location }}>
+                    {movie.title}
+                  </Link>
                 </li>
               );
             })}
